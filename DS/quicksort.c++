@@ -1,29 +1,62 @@
-#include<iostream>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int size;
-    cout<<"Enter the size to list"<<endl;
-    cin >> size;
-    int arr[size];
-    cout<<"Enter the elements of the list"<<endl;
-    for (int i = 0; i < size; i++)
+
+int partition(int arr[],int low,int high)
+{
+
+
+  int pivot=arr[high];
+
+  int i=(low-1);
+
+  for(int j=low;j<=high;j++)
+  {
+
+    if(arr[j]<pivot)
     {
-        cin >> arr[i];
+
+      i++;
+      swap(arr[i],arr[j]);
     }
-    // quick sort
-    for (int i = 0; i < size-1; i++)
+  }
+  swap(arr[i+1],arr[high]);
+  return (i+1);
+}
+
+
+
+void quickSort(int arr[],int low,int high)
+{
+
+  if(low<high)
+  {
+
+
+    int pi=partition(arr,low,high);
+
+
+    quickSort(arr,low,pi-1);
+    quickSort(arr,pi+1,high);
+  }
+}
+
+
+int main() {
+  cout<<"Enter the size of array : ";
+    int n;
+    cin>>n;
+    int arr[n];
+    cout<<"Enter the elements of array :";
+    for(int i=0;i<n;i++)
     {
-        for (int j = i+1; j < size; j++)
-        {
-            if (arr[i]>arr[j])
-            {
-                swap(arr[i],arr[j]);
-            }
-        }
+        cin>>arr[i];
     }
-    for (int i = 0; i < size; i++)
-    {
-        cout<<arr[i]<<" ";
-    }
-    return 0;
+quickSort(arr,0,n-1);
+
+  cout<<"Sorted Array\n";
+  for(int i=0;i<n;i++)
+  {
+    cout<<arr[i]<<" ";
+  }
+  return 0;
 }
